@@ -15,6 +15,7 @@ class AppLifecycleListenerExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(body: AppLifecycleDisplay()),
     );
   }
@@ -81,34 +82,39 @@ class _AppLifecycleDisplayState extends State<AppLifecycleDisplay> {
   Widget build(BuildContext context) {
     return Stack(children: [
       Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            switch (_state) {
-              AppLifecycleState.inactive =>
-                const Text("APP LIFE CYCLE IS INACTIVE"),
-              AppLifecycleState.detached =>
-                const Text("APP LIFE CYCLE IS DETACHED"),
-              AppLifecycleState.resumed =>
-                const Text("APP LIFE CYCLE IS RESUMED"),
-              AppLifecycleState.hidden =>
-                const Text("APP LIFE CYCLE IS HIDDEN"),
-              AppLifecycleState.paused =>
-                const Text("APP LIFE CYCLE IS PAUSED"),
-              null => const Text("NORMAL SCREEn"),
-            }
-          ],
+        body: SizedBox(
+          width: double.maxFinite,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              switch (_state) {
+                AppLifecycleState.inactive =>
+                  const Text("APP LIFE CYCLE IS INACTIVE"),
+                AppLifecycleState.detached =>
+                  const Text("APP LIFE CYCLE IS DETACHED"),
+                AppLifecycleState.resumed =>
+                  const Text("APP LIFE CYCLE IS RESUMED"),
+                AppLifecycleState.hidden =>
+                  const Text("APP LIFE CYCLE IS HIDDEN"),
+                AppLifecycleState.paused =>
+                  const Text("APP LIFE CYCLE IS PAUSED"),
+                null => const Text("NORMAL SCREEn"),
+              }
+            ],
+          ),
         ),
       ),
       if (AppLifecycleState.inactive == _state)
         const Scaffold(
           backgroundColor: Colors.red,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("HIDDEN"),
-            ],
+          body: SizedBox.expand(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("HIDDEN"),
+              ],
+            ),
           ),
         )
     ]);
